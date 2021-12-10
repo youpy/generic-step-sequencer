@@ -1,0 +1,36 @@
+#root {
+  padding: 1em;
+}
+
+.sequencer {
+  a {
+    text-decoration: none;
+  }
+
+  pre {
+    margin: 0;
+  }
+
+  .controls {
+    margin-right: 1em;
+    user-select: none;
+  }
+
+  select {
+    margin-right: 0.3em;
+  }
+
+  .step {
+    display: inline-block;
+    cursor: pointer;
+    user-select: none;
+
+    &:hover {
+      background: #0f0;
+    }
+  }
+
+  .step.current {
+    background: #f00;
+  }
+}
