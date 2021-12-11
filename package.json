@@ -1,5 +1,6 @@
 {
-  "name": "generic-sequencer",
+  "name": "generic-step-sequencer",
+  "description": "A purpose-agnostic step sequencer implementation",
   "version": "0.1.0",
   "main": "build/index.js",
   "license": "MIT",
