@@ -1,23 +1,20 @@
 {
   "name": "generic-sequencer",
-  "version": "0.0.1",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+  "version": "0.1.0",
+  "main": "build/index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^4.5.3"
   },
   "dependencies": {
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "sass": "^1.44.0",
-    "taimaa": "^0.0.6"
+    "taimaa": "^0.0.8"
   },
-  "devDependencies": {
-    "@types/react": "^17.0.33",
-    "@types/react-dom": "^17.0.10",
-    "@types/webmidi": "^2.0.6",
-    "@vitejs/plugin-react": "^1.0.7",
-    "typescript": "^4.4.4",
-    "vite": "^2.7.0"
+  "types": "./build/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "scripts": {
+    "prepare": "tsc"
   }
 }

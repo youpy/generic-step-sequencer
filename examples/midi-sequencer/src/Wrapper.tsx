@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Sequencer } from "./sequencer";
+import { Sequencer } from "../../../src/sequencer";
 import { MidiStepExecuter, MidiParameter } from "./midi";
 import { MidiContext } from "./WithMidi";
 import App from "./App";

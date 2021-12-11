@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Sequencer, State } from "./sequencer";
+import { Sequencer, State } from "../../../src/sequencer";
 import { MidiStepExecuter, MidiParameter } from "./midi";
 import "./App.scss";
 
