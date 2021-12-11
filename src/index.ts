@@ -1,1 +1,8 @@
-export { Sequencer, State } from "./sequencer.js";
+export {
+  Sequencer,
+  State,
+  Track,
+  TrackState,
+  StepExecuter,
+  Step,
+} from "./sequencer.js";

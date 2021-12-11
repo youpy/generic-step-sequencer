@@ -1,15 +1,15 @@
 import Timer from "taimaa";
 
-interface StepExecuter<T> {
+export interface StepExecuter<T> {
   execute(parameters: T): void; // execute a step
 }
 
-interface Step {
+export interface Step {
   active: boolean;
   current: boolean;
 }
 
-interface TrackState<T> {
+export interface TrackState<T> {
   steps: Step[];
   parameters: T;
 }
