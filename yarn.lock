@@ -2,11 +2,6 @@
 # yarn lockfile v1
 
 
-taimaa@^0.0.8:
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/taimaa/-/taimaa-0.0.8.tgz#73f4d4e7c251d99c9b08d4ab4a67e4a1ba68ff7a"
-  integrity sha512-LQFMfpY+QmSjQ+KPSQADgYHqnZ+dLi68ziZcaFa18abs6Z4mAY6SDWhpLwPHJn7X73dJgGuo8uqVdWntxCnj6g==
-
 typescript@^4.5.3:
   version "4.5.3"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.5.3.tgz#afaa858e68c7103317d89eb90c5d8906268d353c"

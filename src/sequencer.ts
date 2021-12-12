@@ -1,5 +1,3 @@
-import Timer from "taimaa";
-
 export interface StepExecuter<T> {
   execute(parameters: T): void; // execute a step
 }
@@ -19,6 +17,23 @@ export interface State<T> {
   bpm: number;
 }
 
+interface Timer {
+  setInterval(callback: () => void, ms: number): number;
+  clearInterval(intervalId: number | undefined): void;
+}
+
+class DefaultTimer {
+  private intervalId: number | undefined;
+
+  setInterval(callback: () => void, ms: number): number {
+    return setInterval(callback, ms);
+  }
+
+  clearInterval(intervalId: number | undefined): void {
+    clearInterval(this.intervalId);
+  }
+}
+
 export class Sequencer<T, U extends StepExecuter<T>> {
   private executer: U;
   private tracks: Track<T>[] = [];
@@ -29,7 +44,7 @@ export class Sequencer<T, U extends StepExecuter<T>> {
 
   constructor(executer: U) {
     this.executer = executer;
-    this.timer = new Timer(new AudioContext());
+    this.timer = new DefaultTimer();
   }
 
   addTrack(parameters: T, numberOfSteps: number, activeSteps: number[]) {
@@ -47,6 +62,10 @@ export class Sequencer<T, U extends StepExecuter<T>> {
     this.stop();
     this.start();
     this.update();
+  }
+
+  setTimer(timer: Timer) {
+    this.timer = timer;
   }
 
   setParameters(i: number, parameters: T) {

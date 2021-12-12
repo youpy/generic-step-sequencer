@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Timer from "taimaa";
 import { Sequencer, State } from "../../../src/sequencer";
 import { MidiStepExecuter, MidiParameter } from "./midi";
 import "./App.scss";
@@ -17,6 +18,7 @@ function App(props: AppProps) {
   useEffect(() => {
     const json = localStorage.getItem("seqState");
 
+    seq.setTimer(new Timer(new AudioContext()));
     seq.setCallback((state: State<MidiParameter>) => setSeqState(state));
     seq.start();
 
