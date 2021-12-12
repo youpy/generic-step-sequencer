@@ -1,0 +1,13 @@
+{
+  "name": "basic",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^4.5.3"
+  },
+  "scripts": {
+    "start": "tsc && node build/examples/basic/index.js"
+  },
+  "type": "module"
+}
