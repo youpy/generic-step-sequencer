@@ -45,7 +45,8 @@ sequencer.start();
 
 ### Use with React
 
-see https://github.com/youpy/generic-step-sequencer/tree/main/examples/midi-sequencer
+- https://github.com/youpy/generic-step-sequencer/tree/main/examples/midi-sequencer
+- https://twitter.com/youpy/status/1469315687999217664
 
 ```typescript
 type Props = {
