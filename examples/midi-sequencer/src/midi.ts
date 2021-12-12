@@ -1,4 +1,6 @@
 import Timer from "taimaa";
+import { Track } from "../../../src/sequencer";
+
 export interface MidiParameter {
   channel: number;
   noteNumber: number;
@@ -13,18 +15,12 @@ export class MidiStepExecutor {
     this.timer = new Timer(new AudioContext());
   }
 
-  execute(parameters: MidiParameter): void {
+  execute(track: Track<MidiParameter>): void {
+    const { channel, noteNumber } = track.parameters;
+
     this.outputs.forEach((output) => {
-      const noteOnMessage = [
-        0x90 | parameters.channel,
-        parameters.noteNumber,
-        0x7f,
-      ];
-      const noteOffMessage = [
-        0x80 | parameters.channel,
-        parameters.noteNumber,
-        0x7f,
-      ];
+      const noteOnMessage = [0x90 | channel, noteNumber, 0x7f];
+      const noteOffMessage = [0x80 | channel, noteNumber, 0x7f];
 
       output.send(noteOnMessage);
 

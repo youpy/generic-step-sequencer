@@ -1,5 +1,5 @@
 export interface StepExecutor<T> {
-  execute(parameters: T): void; // execute a step
+  execute(track: Track<T>): void; // execute a step
 }
 
 export interface Step {
@@ -144,24 +144,36 @@ export class Sequencer<T, U extends StepExecutor<T>> {
 }
 
 export class Track<T> {
-  private numberOfSteps: number;
-  private currentStep: number;
+  private _numberOfSteps: number;
+  private _currentStep: number;
   private activeSteps: number[];
-  private parameters: T;
+  private _parameters: T;
 
   constructor(parameters: T, numberOfsteps: number, activeSteps: number[]) {
-    this.parameters = parameters;
-    this.currentStep = 0;
-    this.numberOfSteps = numberOfsteps;
+    this._parameters = parameters;
+    this._currentStep = 0;
+    this._numberOfSteps = numberOfsteps;
     this.activeSteps = activeSteps;
   }
 
+  get parameters(): T {
+    return this._parameters;
+  }
+
+  get numberOfSteps(): number {
+    return this._numberOfSteps;
+  }
+
+  get currentStep(): number {
+    return this._currentStep;
+  }
+
   setParameters(parameters: T) {
-    this.parameters = parameters;
+    this._parameters = parameters;
   }
 
   setNumberOfSteps(numberOfSteps: number) {
-    this.numberOfSteps = numberOfSteps;
+    this._numberOfSteps = numberOfSteps;
   }
 
   toggleStep(i: number) {
@@ -175,24 +187,24 @@ export class Track<T> {
   get state(): TrackState<T> {
     const steps: Step[] = [];
 
-    for (let i = 0; i < this.numberOfSteps; i++) {
+    for (let i = 0; i < this._numberOfSteps; i++) {
       steps.push({
         active: this.activeSteps.includes(i),
-        current: i === this.currentStep,
+        current: i === this._currentStep,
       });
     }
 
     return {
       steps,
-      parameters: this.parameters,
+      parameters: this._parameters,
     };
   }
 
   step(executor: StepExecutor<T>) {
-    if (this.activeSteps.includes(this.currentStep)) {
-      executor.execute(this.parameters);
+    if (this.activeSteps.includes(this._currentStep)) {
+      executor.execute(this);
     }
 
-    this.currentStep = (this.currentStep + 1) % this.numberOfSteps;
+    this._currentStep = (this._currentStep + 1) % this._numberOfSteps;
   }
 }

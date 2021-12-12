@@ -22,8 +22,10 @@ interface MyParameter {
 }
 
 class MyStepExecutor implements StepExecutor<MyParameter> {
-  execute(parameters: MyParameter): void {
-    console.log(`executing step ${parameter.foo}`);
+  execute(track: Track<MyParameter>): void {
+    console.log(
+      `executing step ${track.currentStep} on ${track.parameters.foo}`
+    );
   }
 }
 ```

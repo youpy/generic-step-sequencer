@@ -1,12 +1,14 @@
-import { StepExecutor, Sequencer } from "../../src/sequencer.js";
+import { StepExecutor, Sequencer, Track } from "../../src/sequencer.js";
 
 interface MyParameter {
   foo: string;
 }
 
 class MyStepExecutor implements StepExecutor<MyParameter> {
-  execute(parameters: MyParameter): void {
-    console.log(`executing step ${parameters.foo}`);
+  execute(track: Track<MyParameter>): void {
+    console.log(
+      `executing step ${track.currentStep} on ${track.parameters.foo}`
+    );
   }
 }
 
