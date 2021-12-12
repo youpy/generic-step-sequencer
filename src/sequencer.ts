@@ -94,7 +94,7 @@ export class Sequencer<T, U extends StepExecutor<T>> {
 
   step() {
     this.tracks.forEach((track) => {
-      track.nextStep(this.executor);
+      track.step(this.executor);
     });
   }
 
@@ -188,12 +188,11 @@ export class Track<T> {
     };
   }
 
-  nextStep(executor: StepExecutor<T>) {
-    this.currentStep = (this.currentStep + 1) % this.numberOfSteps;
-    if (!this.activeSteps.includes(this.currentStep)) {
-      return;
+  step(executor: StepExecutor<T>) {
+    if (this.activeSteps.includes(this.currentStep)) {
+      executor.execute(this.parameters);
     }
 
-    executor.execute(this.parameters);
+    this.currentStep = (this.currentStep + 1) % this.numberOfSteps;
   }
 }
