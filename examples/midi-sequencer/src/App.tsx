@@ -19,7 +19,7 @@ function App(props: AppProps) {
     const json = localStorage.getItem("seqState");
 
     seq.setTimer(new Timer(new AudioContext()));
-    seq.setCallback((state: State<MidiParameter>) => setSeqState(state));
+    seq.onStateChange((state: State<MidiParameter>) => setSeqState(state));
     seq.start();
 
     if (json) {

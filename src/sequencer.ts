@@ -78,7 +78,7 @@ export class Sequencer<T, U extends StepExecutor<T>> {
     this.update();
   }
 
-  setCallback(cb: (state: State<T>) => void) {
+  onStateChange(cb: (state: State<T>) => void) {
     this.cb = cb;
   }
 

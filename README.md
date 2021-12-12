@@ -60,7 +60,7 @@ funcion App(props: Props) {
   });
 
   useEffect(() => {
-    seq.setCallback(state => setSeqState(state));
+    seq.onStateChange(state => setSeqState(state));
   });
 
   // construct view from seqState
