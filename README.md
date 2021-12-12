@@ -57,7 +57,9 @@ funcion App(props: Props) {
     bpm: 300,
   });
 
-  seq.setCallback(state => setSeqState(state));
+  useEffect(() => {
+    seq.setCallback(state => setSeqState(state));
+  });
 
   // construct view from seqState
   return ...
