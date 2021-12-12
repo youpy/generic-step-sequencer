@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import Timer from "taimaa";
 import { Sequencer, State } from "../../../src/sequencer";
-import { MidiStepExecuter, MidiParameter } from "./midi";
+import { MidiStepExecutor, MidiParameter } from "./midi";
 import "./App.scss";
 
 interface AppProps {
-  seq: Sequencer<MidiParameter, MidiStepExecuter>;
+  seq: Sequencer<MidiParameter, MidiStepExecutor>;
 }
 
 function App(props: AppProps) {

@@ -31,7 +31,7 @@ class MyStepExecutor implements StepExecutor<MyParameter> {
 create and start a seuqencer
 
 ```typescript
-const sequencer = new Sequencer<MyParameter, MyStepExecuter>(
+const sequencer = new Sequencer<MyParameter, MyStepExecutor>(
   new MyStepExecutor()
 );
 
@@ -47,7 +47,7 @@ see https://github.com/youpy/generic-step-sequencer/tree/main/examples/midi-sequ
 
 ```typescript
 type Props = {
-  seq: Sequencer<MyParameter, MyStepExecuter>;
+  seq: Sequencer<MyParameter, MyStepExecutor>;
 };
 
 funcion App(props: Props) {

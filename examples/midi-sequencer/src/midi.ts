@@ -4,7 +4,7 @@ export interface MidiParameter {
   noteNumber: number;
 }
 
-export class MidiStepExecuter {
+export class MidiStepExecutor {
   private outputs: WebMidi.MIDIOutput[];
   private timer: Timer;
 

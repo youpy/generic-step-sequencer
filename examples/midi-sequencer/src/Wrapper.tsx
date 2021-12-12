@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Sequencer } from "../../../src/sequencer";
-import { MidiStepExecuter, MidiParameter } from "./midi";
+import { MidiStepExecutor, MidiParameter } from "./midi";
 import { MidiContext } from "./WithMidi";
 import App from "./App";
 import "./App.scss";
@@ -15,8 +15,8 @@ function Wrapper() {
   return (
     <App
       seq={
-        new Sequencer<MidiParameter, MidiStepExecuter>(
-          new MidiStepExecuter(outputs)
+        new Sequencer<MidiParameter, MidiStepExecutor>(
+          new MidiStepExecutor(outputs)
         )
       }
     />

@@ -1,4 +1,4 @@
-export interface StepExecuter<T> {
+export interface StepExecutor<T> {
   execute(parameters: T): void; // execute a step
 }
 
@@ -34,16 +34,16 @@ class DefaultTimer {
   }
 }
 
-export class Sequencer<T, U extends StepExecuter<T>> {
-  private executer: U;
+export class Sequencer<T, U extends StepExecutor<T>> {
+  private executor: U;
   private tracks: Track<T>[] = [];
   private _bpm: number = 120;
   private intervalId: number | undefined;
   private cb: (state: State<T>) => void = () => {};
   private timer: Timer;
 
-  constructor(executer: U) {
-    this.executer = executer;
+  constructor(executor: U) {
+    this.executor = executor;
     this.timer = new DefaultTimer();
   }
 
@@ -94,7 +94,7 @@ export class Sequencer<T, U extends StepExecuter<T>> {
 
   step() {
     this.tracks.forEach((track) => {
-      track.nextStep(this.executer);
+      track.nextStep(this.executor);
     });
   }
 
@@ -188,12 +188,12 @@ export class Track<T> {
     };
   }
 
-  nextStep(executer: StepExecuter<T>) {
+  nextStep(executor: StepExecutor<T>) {
     this.currentStep = (this.currentStep + 1) % this.numberOfSteps;
     if (!this.activeSteps.includes(this.currentStep)) {
       return;
     }
 
-    executer.execute(this.parameters);
+    executor.execute(this.parameters);
   }
 }
