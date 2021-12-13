@@ -61,7 +61,7 @@ funcion App(props: Props) {
   });
 
   useEffect(() => {
-    seq.onStateChange(state => setSeqState(state));
+    seq.onStateChange(setSeqState);
   });
 
   // construct view from seqState
