@@ -3,6 +3,6 @@ export {
   State,
   Track,
   TrackState,
-  StepExecutor as StepExecutor,
+  StepExecutor,
   Step,
 } from "./sequencer.js";
