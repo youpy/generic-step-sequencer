@@ -201,10 +201,10 @@ export class Track<T> {
   }
 
   step(executor: StepExecutor<T>) {
+    this._currentStep = (this._currentStep + 1) % this._numberOfSteps;
+
     if (this.activeSteps.includes(this._currentStep)) {
       executor.execute(this);
     }
-
-    this._currentStep = (this._currentStep + 1) % this._numberOfSteps;
   }
 }
