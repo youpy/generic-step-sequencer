@@ -23,14 +23,12 @@ interface Timer {
 }
 
 class DefaultTimer {
-  private intervalId: number | undefined;
-
   setInterval(callback: () => void, ms: number): number {
     return setInterval(callback, ms);
   }
 
   clearInterval(intervalId: number | undefined): void {
-    clearInterval(this.intervalId);
+    clearInterval(intervalId);
   }
 }
 
