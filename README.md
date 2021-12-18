@@ -71,7 +71,7 @@ funcion App(props: Props) {
 
 ### Use custom timer
 
-You can replace the default timer with a custom timer implementation that implements the [`Timer`](https://github.com/youpy/generic-step-sequencer/blob/2c1ab3d703ac062224d786ca54a0a033adea3ef8/src/sequencer.ts#L20-L23) interface
+You can replace the [default timer](https://github.com/youpy/generic-step-sequencer/blob/25176697c1c01bd5bde6154f3c10763632d6cb4a/src/sequencer.ts#L25-L35) with a custom timer implementation that implements the [`Timer`](https://github.com/youpy/generic-step-sequencer/blob/2c1ab3d703ac062224d786ca54a0a033adea3ef8/src/sequencer.ts#L20-L23) interface
 
 ```typescript
 seq.setTimer(new MyTimer());
