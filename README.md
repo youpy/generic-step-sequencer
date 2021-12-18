@@ -68,3 +68,11 @@ funcion App(props: Props) {
   return ...
 }
 ```
+
+### Use custom timer
+
+You can replace the default timer with a custom timer implementation that implements the [`Timer`](https://github.com/youpy/generic-step-sequencer/blob/2c1ab3d703ac062224d786ca54a0a033adea3ef8/src/sequencer.ts#L20-L23) interface
+
+```typescript
+seq.setTimer(new MyTimer());
+```
