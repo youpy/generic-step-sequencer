@@ -30,7 +30,7 @@ class MyStepExecutor implements StepExecutor<MyParameter> {
 }
 ```
 
-create and start a seuqencer
+create and start a sequencer
 
 ```typescript
 const sequencer = new Sequencer<MyParameter, MyStepExecutor>(
