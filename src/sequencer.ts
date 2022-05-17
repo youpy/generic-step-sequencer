@@ -28,8 +28,12 @@ export const backward = <T>(track: Track<T>): number => {
   return (track.currentStep + track.numberOfSteps - 1) % track.numberOfSteps;
 };
 
+interface Tickable {
+  onTick(): void;
+}
+
 interface Ticker {
-  tick(tickable: { tick(): void }): void;
+  tick(tickable: Tickable): void;
 }
 
 interface Timer {
@@ -47,11 +51,11 @@ class DefaultTimer {
   }
 }
 
-export class PeriodicTicker {
+export class PeriodicTicker implements Ticker {
   private intervalId: number | undefined;
 
   constructor(
-    private tickable: { tick(): void },
+    private tickable: Tickable,
     private timer: Timer = new DefaultTimer(),
     private _bpm: number = 120
   ) {
@@ -81,7 +85,7 @@ export class PeriodicTicker {
   }
 
   tick(): void {
-    this.tickable.tick();
+    this.tickable.onTick();
   }
 
   stop(): void {
@@ -165,7 +169,7 @@ export class Sequencer<T, U extends StepExecutor<T>> {
     });
   }
 
-  tick() {
+  onTick() {
     this.step();
     this.update();
   }
