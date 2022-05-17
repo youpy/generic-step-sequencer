@@ -97,6 +97,10 @@ export class Sequencer<T, U extends StepExecutor<T>> {
     this.update();
   }
 
+  setNextStepStrategy(nextStepStrategy: NextStepStrategy<T>) {
+    this.nextStepStrategy = nextStepStrategy;
+  }
+
   onStateChange(cb: (state: State<T>) => void) {
     this.cb = cb;
   }
