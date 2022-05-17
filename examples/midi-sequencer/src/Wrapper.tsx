@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import Timer from "taimaa";
-import { Sequencer, PeriodicTicker } from "../../../src/sequencer";
+import { Sequencer, PeriodicTicker } from "../../../src/";
 import { MidiStepExecutor, MidiParameter } from "./midi";
 import { MidiContext } from "./WithMidi";
 import App from "./App";

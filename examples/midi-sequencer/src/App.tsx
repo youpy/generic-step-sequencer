@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Sequencer, PeriodicTicker, State } from "../../../src/sequencer";
+import { Sequencer, PeriodicTicker, SequencerState } from "../../../src/";
 import { MidiStepExecutor, MidiParameter } from "./midi";
 import "./App.scss";
 
@@ -10,7 +10,7 @@ interface AppProps {
 
 function App(props: AppProps) {
   const { seq, ticker } = props;
-  const [seqState, setSeqState] = useState<State<MidiParameter>>({
+  const [seqState, setSeqState] = useState<SequencerState<MidiParameter>>({
     tracks: [],
   });
 
@@ -21,7 +21,7 @@ function App(props: AppProps) {
     ticker.start();
 
     if (json) {
-      seq.load(JSON.parse(json) as State<MidiParameter>);
+      seq.load(JSON.parse(json) as SequencerState<MidiParameter>);
     }
 
     return () => {
