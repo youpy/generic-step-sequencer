@@ -17,6 +17,22 @@ export interface State<T> {
   bpm: number;
 }
 
+interface NextStepStrategy<T> {
+  onStep(track: Track<T>): number;
+}
+
+class Forward<T> implements NextStepStrategy<T> {
+  onStep(track: Track<T>): number {
+    return (track.currentStep + 1) % track.numberOfSteps;
+  }
+}
+
+class Backward<T> implements NextStepStrategy<T> {
+  onStep(track: Track<T>): number {
+    return (track.currentStep + track.numberOfSteps - 1) % track.numberOfSteps;
+  }
+}
+
 interface Timer {
   setInterval(callback: () => void, ms: number): number;
   clearInterval(intervalId: number | undefined): void;
@@ -39,10 +55,15 @@ export class Sequencer<T, U extends StepExecutor<T>> {
   private intervalId: number | undefined;
   private cb: (state: State<T>) => void = () => {};
   private timer: Timer;
+  private nextStepStrategy: NextStepStrategy<T>;
 
-  constructor(executor: U) {
+  constructor(
+    executor: U,
+    nextStepStrategy: NextStepStrategy<T> = new Forward<T>()
+  ) {
     this.executor = executor;
     this.timer = new DefaultTimer();
+    this.nextStepStrategy = nextStepStrategy;
   }
 
   addTrack(parameters: T, numberOfSteps: number, activeSteps: number[]) {
@@ -92,7 +113,7 @@ export class Sequencer<T, U extends StepExecutor<T>> {
 
   step() {
     this.tracks.forEach((track) => {
-      track.step(this.executor);
+      track.step(this.executor, this.nextStepStrategy);
     });
   }
 
@@ -198,8 +219,8 @@ export class Track<T> {
     };
   }
 
-  step(executor: StepExecutor<T>) {
-    this._currentStep = (this._currentStep + 1) % this._numberOfSteps;
+  step(executor: StepExecutor<T>, nextStepStrategy: NextStepStrategy<T>) {
+    this._currentStep = nextStepStrategy.onStep(this);
 
     if (this.activeSteps.includes(this._currentStep)) {
       executor.execute(this);
