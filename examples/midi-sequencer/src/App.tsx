@@ -18,12 +18,12 @@ interface AppProps {
 const backAndForth = (track: Track<MidiParameter>): number => {
   const step = track.currentStep;
 
-  if (step === 0) {
-    track.parameters.dir = 1;
-  }
-
-  if (step === track.numberOfSteps - 1) {
-    track.parameters.dir = 0;
+  switch (step) {
+    case 0:
+      track.parameters.dir = 1;
+      break;
+    case track.numberOfSteps - 1:
+      track.parameters.dir = 0;
   }
 
   return track.parameters.dir === 1 ? forward(track) : backward(track);
