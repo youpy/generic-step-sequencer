@@ -62,6 +62,18 @@ function App(props: AppProps) {
     seq.setNextStepStrategy(directions[direction]);
   }, [direction]);
 
+  const onClickTickButton = () => {
+    seq.onTick();
+  };
+
+  const onClickStartButton = () => {
+    ticker.start();
+  };
+
+  const onClickStopButton = () => {
+    ticker.stop();
+  };
+
   return (
     <div className="App">
       <div className="sequencer">
@@ -145,40 +157,47 @@ function App(props: AppProps) {
             </a>
           </code>
         </pre>
-        <div>
-          <input
-            type="range"
-            min="30"
-            max="400"
-            step="10"
-            value={ticker.bpm}
-            onChange={(e) => ticker.setBpm(parseInt(e.target.value))}
-          />
-          {ticker.bpm}
-        </div>
-        <div>
-          <select
-            value={direction}
-            onChange={(e) =>
-              setDirection(e.target.value as keyof typeof directions)
-            }
-          >
-            {Object.keys(directions).map((d) => (
-              <option key={d} value={d}>
-                {d}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <a
-            href="#"
-            onClick={() =>
-              localStorage.setItem("seqState", JSON.stringify(seqState))
-            }
-          >
-            💾
-          </a>
+        <div className="controls">
+          <div className="buttons">
+            <button onClick={onClickTickButton}>Tick</button>
+            <button onClick={onClickStartButton}>Start</button>
+            <button onClick={onClickStopButton}>Stop</button>
+          </div>
+          <div>
+            <input
+              type="range"
+              min="30"
+              max="400"
+              step="10"
+              value={ticker.bpm}
+              onChange={(e) => ticker.setBpm(parseInt(e.target.value))}
+            />
+            {ticker.bpm}
+          </div>
+          <div>
+            <select
+              value={direction}
+              onChange={(e) =>
+                setDirection(e.target.value as keyof typeof directions)
+              }
+            >
+              {Object.keys(directions).map((d) => (
+                <option key={d} value={d}>
+                  {d}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <a
+              href="#"
+              onClick={() =>
+                localStorage.setItem("seqState", JSON.stringify(seqState))
+              }
+            >
+              💾
+            </a>
+          </div>
         </div>
       </div>
     </div>
