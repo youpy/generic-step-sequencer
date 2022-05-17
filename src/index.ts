@@ -7,4 +7,5 @@ export {
   Step,
   forward,
   backward,
+  PeriodicTicker,
 } from "./sequencer.js";

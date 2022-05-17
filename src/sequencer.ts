@@ -14,7 +14,6 @@ export interface TrackState<T> {
 
 export interface State<T> {
   tracks: TrackState<T>[];
-  bpm: number;
 }
 
 interface NextStepStrategy<T> {
@@ -28,6 +27,10 @@ export const forward = <T>(track: Track<T>): number => {
 export const backward = <T>(track: Track<T>): number => {
   return (track.currentStep + track.numberOfSteps - 1) % track.numberOfSteps;
 };
+
+interface Ticker {
+  tick(tickable: { tick(): void }): void;
+}
 
 interface Timer {
   setInterval(callback: () => void, ms: number): number;
@@ -44,27 +47,20 @@ class DefaultTimer {
   }
 }
 
-export class Sequencer<T, U extends StepExecutor<T>> {
-  private executor: U;
-  private tracks: Track<T>[] = [];
-  private _bpm: number = 120;
+export class PeriodicTicker {
   private intervalId: number | undefined;
-  private cb: (state: State<T>) => void = () => {};
-  private timer: Timer;
-  private nextStepStrategy: NextStepStrategy<T>;
 
-  constructor(executor: U, nextStepStrategy: NextStepStrategy<T> = forward) {
-    this.executor = executor;
-    this.timer = new DefaultTimer();
-    this.nextStepStrategy = nextStepStrategy;
+  constructor(
+    private tickable: { tick(): void },
+    private timer: Timer = new DefaultTimer(),
+    private _bpm: number = 120
+  ) {
+    this.timer = timer;
+    this._bpm = _bpm;
+    this.tickable = tickable;
   }
 
-  addTrack(parameters: T, numberOfSteps: number, activeSteps: number[]) {
-    this.tracks.push(new Track<T>(parameters, numberOfSteps, activeSteps));
-    this.update();
-  }
-
-  private get bpm(): number {
+  get bpm(): number {
     return this._bpm;
   }
 
@@ -73,11 +69,40 @@ export class Sequencer<T, U extends StepExecutor<T>> {
 
     this.stop();
     this.start();
-    this.update();
   }
 
-  setTimer(timer: Timer) {
-    this.timer = timer;
+  start(): void {
+    const stepIntervalMS = 60000 / this.bpm;
+
+    this.tick();
+    this.intervalId = this.timer.setInterval(() => {
+      this.tick();
+    }, stepIntervalMS);
+  }
+
+  tick(): void {
+    this.tickable.tick();
+  }
+
+  stop(): void {
+    this.timer.clearInterval(this.intervalId);
+  }
+}
+
+export class Sequencer<T, U extends StepExecutor<T>> {
+  private executor: U;
+  private tracks: Track<T>[] = [];
+  private cb: (state: State<T>) => void = () => {};
+  private nextStepStrategy: NextStepStrategy<T>;
+
+  constructor(executor: U, nextStepStrategy: NextStepStrategy<T> = forward) {
+    this.executor = executor;
+    this.nextStepStrategy = nextStepStrategy;
+  }
+
+  addTrack(parameters: T, numberOfSteps: number, activeSteps: number[]) {
+    this.tracks.push(new Track<T>(parameters, numberOfSteps, activeSteps));
+    this.update();
   }
 
   setParameters(i: number, parameters: T) {
@@ -128,21 +153,8 @@ export class Sequencer<T, U extends StepExecutor<T>> {
     });
 
     this.tracks = tracks;
-    this._bpm = state.bpm;
 
-    this.stop();
-    this.start();
     this.update();
-  }
-
-  start() {
-    const stepIntervalMS = 60000 / this._bpm;
-
-    this.step();
-    this.intervalId = this.timer.setInterval(() => {
-      this.step();
-      this.update();
-    }, stepIntervalMS);
   }
 
   update() {
@@ -150,12 +162,12 @@ export class Sequencer<T, U extends StepExecutor<T>> {
       tracks: this.tracks.map((track) => {
         return track.state;
       }),
-      bpm: this.bpm,
     });
   }
 
-  stop() {
-    this.timer.clearInterval(this.intervalId);
+  tick() {
+    this.step();
+    this.update();
   }
 }
 

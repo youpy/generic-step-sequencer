@@ -1,33 +1,31 @@
 import { useEffect, useState } from "react";
-import Timer from "taimaa";
-import { Sequencer, State } from "../../../src/sequencer";
+import { Sequencer, PeriodicTicker, State } from "../../../src/sequencer";
 import { MidiStepExecutor, MidiParameter } from "./midi";
 import "./App.scss";
 
 interface AppProps {
   seq: Sequencer<MidiParameter, MidiStepExecutor>;
+  ticker: PeriodicTicker;
 }
 
 function App(props: AppProps) {
-  const { seq } = props;
+  const { seq, ticker } = props;
   const [seqState, setSeqState] = useState<State<MidiParameter>>({
     tracks: [],
-    bpm: 300,
   });
 
   useEffect(() => {
     const json = localStorage.getItem("seqState");
 
-    seq.setTimer(new Timer(new AudioContext()));
     seq.onStateChange(setSeqState);
-    seq.start();
+    ticker.start();
 
     if (json) {
       seq.load(JSON.parse(json) as State<MidiParameter>);
     }
 
     return () => {
-      seq.stop();
+      ticker.stop();
     };
   }, []);
 
@@ -118,10 +116,10 @@ function App(props: AppProps) {
             min="30"
             max="400"
             step="10"
-            value={seqState.bpm}
-            onChange={(e) => seq.setBpm(parseInt(e.target.value))}
+            value={ticker.bpm}
+            onChange={(e) => ticker.setBpm(parseInt(e.target.value))}
           />
-          {seqState.bpm}
+          {ticker.bpm}
         </div>
         <div>
           <a
