@@ -15,7 +15,12 @@ see https://github.com/youpy/generic-step-sequencer/blob/main/examples/basic/ind
 implement a step executor
 
 ```typescript
-import { StepExecutor, Sequencer, State } from "generic-step-sequencer";
+import {
+  StepExecutor,
+  Sequencer,
+  State,
+  backward,
+} from "generic-step-sequencer";
 
 interface MyParameter {
   foo: string;
@@ -41,6 +46,19 @@ sequencer.addTrack({ foo: "track1" }, 8, [0, 2, 4, 6]);
 sequencer.addTrack({ foo: "track2" }, 8, [1, 3, 5, 7]);
 sequencer.setBpm(250);
 sequencer.start();
+```
+
+set step direction
+
+```typescript
+// backward
+sequencer.setNextStepStrategy(backward);
+
+// random
+const random = <T>(track: Track<T>): number => {
+  return Math.floor(Math.random() * track.numberOfSteps);
+};
+sequencer.setNextStepStrategy(random);
 ```
 
 ### Use with React
