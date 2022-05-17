@@ -35,6 +35,7 @@ export class PeriodicTicker implements Ticker {
   start(): void {
     const stepIntervalMS = 60000 / this.bpm;
 
+    this.stop();
     this.tick();
     this.intervalId = this.timer.setInterval(() => {
       this.tick();
