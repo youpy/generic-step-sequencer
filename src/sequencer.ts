@@ -137,12 +137,6 @@ export class Sequencer<T, U extends StepExecutor<T>> {
     this.update();
   }
 
-  step() {
-    this.tracks.forEach((track) => {
-      track.step(this.executor, this.nextStepStrategy);
-    });
-  }
-
   load(state: State<T>) {
     const tracks: Track<T>[] = state.tracks.map((track) => {
       const activeSteps = track.steps.reduce<number[]>((out, step, index) => {
@@ -161,7 +155,13 @@ export class Sequencer<T, U extends StepExecutor<T>> {
     this.update();
   }
 
-  update() {
+  private step() {
+    this.tracks.forEach((track) => {
+      track.step(this.executor, this.nextStepStrategy);
+    });
+  }
+
+  private update() {
     this.cb({
       tracks: this.tracks.map((track) => {
         return track.state;
