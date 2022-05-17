@@ -1,9 +1,10 @@
 import Timer from "taimaa";
-import { Track } from "../../../src/sequencer";
+import { Track } from "../../../src/";
 
 export interface MidiParameter {
   channel: number;
   noteNumber: number;
+  dir: 0 | 1;
 }
 
 export class MidiStepExecutor {

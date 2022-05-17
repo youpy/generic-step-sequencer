@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
-import { Sequencer, PeriodicTicker, SequencerState } from "../../../src/";
+import {
+  Sequencer,
+  PeriodicTicker,
+  SequencerState,
+  Track,
+  forward,
+  backward,
+} from "../../../src/";
 import { MidiStepExecutor, MidiParameter } from "./midi";
 import "./App.scss";
 
@@ -8,11 +15,33 @@ interface AppProps {
   ticker: PeriodicTicker;
 }
 
+const backAndForth = (track: Track<MidiParameter>): number => {
+  const step = track.currentStep;
+
+  if (step === 0) {
+    track.parameters.dir = 1;
+  }
+
+  if (step === track.numberOfSteps - 1) {
+    track.parameters.dir = 0;
+  }
+
+  return track.parameters.dir === 1 ? forward(track) : backward(track);
+};
+
+const directions = {
+  forward: forward,
+  backward: backward,
+  backAndForth: backAndForth,
+};
+
 function App(props: AppProps) {
   const { seq, ticker } = props;
   const [seqState, setSeqState] = useState<SequencerState<MidiParameter>>({
     tracks: [],
   });
+  const [direction, setDirection] =
+    useState<keyof typeof directions>("forward");
 
   useEffect(() => {
     const json = localStorage.getItem("seqState");
@@ -29,6 +58,10 @@ function App(props: AppProps) {
     };
   }, []);
 
+  useEffect(() => {
+    seq.setNextStepStrategy(directions[direction]);
+  }, [direction]);
+
   return (
     <div className="App">
       <div className="sequencer">
@@ -40,6 +73,7 @@ function App(props: AppProps) {
                 seq.setParameters(i, {
                   channel: Number(e.target.value),
                   noteNumber: t.parameters.noteNumber,
+                  dir: t.parameters.dir,
                 })
               }
             >
@@ -55,6 +89,7 @@ function App(props: AppProps) {
                 seq.setParameters(i, {
                   channel: t.parameters.channel,
                   noteNumber: Number(e.target.value),
+                  dir: t.parameters.dir,
                 })
               }
             >
@@ -103,7 +138,7 @@ function App(props: AppProps) {
             <a
               href="#"
               onClick={() =>
-                seq.addTrack({ channel: 0, noteNumber: 60 }, 8, [])
+                seq.addTrack({ channel: 0, noteNumber: 60, dir: 0 }, 8, [])
               }
             >
               +
@@ -120,6 +155,20 @@ function App(props: AppProps) {
             onChange={(e) => ticker.setBpm(parseInt(e.target.value))}
           />
           {ticker.bpm}
+        </div>
+        <div>
+          <select
+            value={direction}
+            onChange={(e) =>
+              setDirection(e.target.value as keyof typeof directions)
+            }
+          >
+            {Object.keys(directions).map((d) => (
+              <option key={d} value={d}>
+                {d}
+              </option>
+            ))}
+          </select>
         </div>
         <div>
           <a
