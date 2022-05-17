@@ -21,13 +21,13 @@ interface NextStepStrategy<T> {
   onStep(track: Track<T>): number;
 }
 
-class Forward<T> implements NextStepStrategy<T> {
+export class Forward<T> implements NextStepStrategy<T> {
   onStep(track: Track<T>): number {
     return (track.currentStep + 1) % track.numberOfSteps;
   }
 }
 
-class Backward<T> implements NextStepStrategy<T> {
+export class Backward<T> implements NextStepStrategy<T> {
   onStep(track: Track<T>): number {
     return (track.currentStep + track.numberOfSteps - 1) % track.numberOfSteps;
   }
