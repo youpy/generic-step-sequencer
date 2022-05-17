@@ -5,6 +5,6 @@ export {
   TrackState,
   StepExecutor,
   Step,
-  Forward,
-  Backward,
+  forward,
+  backward,
 } from "./sequencer.js";
