@@ -25,7 +25,7 @@ export class PeriodicTicker implements Ticker {
     return this._bpm;
   }
 
-  setBpm(bpm: number) {
+  set bpm(bpm: number) {
     this._bpm = bpm;
 
     this.stop();

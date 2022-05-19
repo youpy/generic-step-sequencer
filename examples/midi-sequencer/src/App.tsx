@@ -170,7 +170,7 @@ function App(props: AppProps) {
               max="400"
               step="10"
               value={ticker.bpm}
-              onChange={(e) => ticker.setBpm(parseInt(e.target.value))}
+              onChange={(e) => (ticker.bpm = parseInt(e.target.value))}
             />
             {ticker.bpm}
           </div>

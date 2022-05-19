@@ -46,7 +46,7 @@ const ticker = new PeriodicTicker(sequencer);
 
 sequencer.addTrack({ foo: "track1" }, 8, [0, 2, 4, 6]);
 sequencer.addTrack({ foo: "track2" }, 8, [1, 3, 5, 7]);
-ticker.setBpm(250);
+ticker.bpm = 250;
 ticker.start();
 ```
 
