@@ -16,9 +16,7 @@ interface AppProps {
 }
 
 const backAndForth = (track: Track<MidiParameter>): number => {
-  const step = track.currentStep;
-
-  switch (step) {
+  switch (track.currentStep) {
     case 0:
       track.parameters.dir = 1;
       break;
