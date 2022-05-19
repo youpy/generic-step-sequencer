@@ -5,7 +5,7 @@ interface Tickable {
 }
 
 interface Ticker {
-  tick(tickable: Tickable): void;
+  tick(): void;
 }
 
 export class PeriodicTicker implements Ticker {
