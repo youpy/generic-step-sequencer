@@ -27,10 +27,14 @@ const backAndForth = (track: Track<MidiParameter>): number => {
   return track.parameters.dir === 1 ? forward(track) : backward(track);
 };
 
+const random = (track: Track<MidiParameter>): number =>
+  Math.floor(Math.random() * track.numberOfSteps);
+
 const directions = {
   forward: forward,
   backward: backward,
   backAndForth: backAndForth,
+  random: random,
 };
 
 function App(props: AppProps) {
