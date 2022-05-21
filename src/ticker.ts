@@ -28,8 +28,14 @@ export class PeriodicTicker implements Ticker {
   set bpm(bpm: number) {
     this._bpm = bpm;
 
-    this.stop();
-    this.start();
+    if (this.isStarting) {
+      this.stop();
+      this.start();
+    }
+  }
+
+  get isStarting(): boolean {
+    return this.intervalId !== undefined;
   }
 
   start(): void {

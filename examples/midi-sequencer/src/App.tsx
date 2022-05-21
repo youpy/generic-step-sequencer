@@ -44,6 +44,7 @@ function App(props: AppProps) {
   });
   const [direction, setDirection] =
     useState<keyof typeof directions>("forward");
+  const [bpm, setBpm] = useState(120);
 
   useEffect(() => {
     const json = localStorage.getItem("seqState");
@@ -63,6 +64,10 @@ function App(props: AppProps) {
   useEffect(() => {
     seq.setNextStepStrategy(directions[direction]);
   }, [direction]);
+
+  useEffect(() => {
+    ticker.bpm = bpm;
+  }, [bpm]);
 
   const onClickTickButton = () => {
     seq.onTick();
@@ -168,13 +173,13 @@ function App(props: AppProps) {
           <div>
             <input
               type="range"
-              min="30"
-              max="400"
-              step="10"
-              value={ticker.bpm}
-              onChange={(e) => (ticker.bpm = parseInt(e.target.value))}
+              min="1"
+              max="800"
+              step="1"
+              value={bpm}
+              onChange={(e) => setBpm(parseInt(e.target.value))}
             />
-            {ticker.bpm}
+            {bpm}
           </div>
           <div>
             <select
