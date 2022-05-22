@@ -815,10 +815,10 @@ supports-preserve-symlinks-flag@^1.0.0:
   resolved "https://registry.yarnpkg.com/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz#6eda4bd344a3c94aea376d4cc31bc77311039e09"
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
 
-taimaa@^0.0.6:
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/taimaa/-/taimaa-0.0.6.tgz#028ef19bb215c707bc574fba9745fd1ed0109e3e"
-  integrity sha512-YVXsAI4aE0nZKuA4MfJ7RosdFoDLS8ucTRbeWEVT+DOn1c1InfPO1GC73pPktyXf5r3JiCpvsnUrwnjCMtc9EQ==
+taimaa@^0.0.9:
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/taimaa/-/taimaa-0.0.9.tgz#745d433492bc6f361db823de480bd21a151446df"
+  integrity sha512-E7e/Nx3gUYUaawFdtFSUVzHBeM2K3/CflRf9l34lZy2UCKaGfqOor3IlqvUqXkZDl6W1ab86k2p4q+1YwNwIPw==
 
 to-fast-properties@^2.0.0:
   version "2.0.0"
