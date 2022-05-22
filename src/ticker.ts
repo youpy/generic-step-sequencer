@@ -54,5 +54,6 @@ export class PeriodicTicker implements Ticker {
 
   stop(): void {
     this.timer.clearInterval(this.intervalId);
+    this.intervalId = undefined;
   }
 }
