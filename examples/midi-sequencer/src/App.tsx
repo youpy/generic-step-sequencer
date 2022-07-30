@@ -81,6 +81,10 @@ function App(props: AppProps) {
     ticker.stop();
   };
 
+  const onClickResetButton = () => {
+    seq.reset();
+  };
+
   return (
     <div className="App">
       <div className="sequencer">
@@ -169,6 +173,7 @@ function App(props: AppProps) {
             <button onClick={onClickTickButton}>Tick</button>
             <button onClick={onClickStartButton}>Start</button>
             <button onClick={onClickStopButton}>Stop</button>
+            <button onClick={onClickResetButton}>Reset</button>
           </div>
           <div>
             <input

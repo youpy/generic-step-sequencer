@@ -81,4 +81,8 @@ export class Track<T> {
       executor.execute(this);
     }
   }
+
+  reset() {
+    this._currentStep = 0;
+  }
 }

@@ -68,6 +68,14 @@ export class Sequencer<T, U extends StepExecutor<T>> {
     this.update();
   }
 
+  reset() {
+    this.tracks.forEach((track) => {
+      track.reset();
+    });
+
+    this.update();
+  }
+
   private step() {
     this.tracks.forEach((track) => {
       track.step(this.executor, this.nextStepStrategy);
