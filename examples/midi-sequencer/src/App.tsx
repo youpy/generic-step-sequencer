@@ -50,7 +50,6 @@ function App(props: AppProps) {
     const json = localStorage.getItem("seqState");
 
     seq.onStateChange(setSeqState);
-    ticker.start();
 
     if (json) {
       seq.load(JSON.parse(json) as SequencerState<MidiParameter>);
