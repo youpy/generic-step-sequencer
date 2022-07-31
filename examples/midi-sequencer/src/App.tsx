@@ -159,9 +159,14 @@ function App(props: AppProps) {
           <code>
             <a
               href="#"
-              onClick={() =>
-                seq.addTrack({ channel: 0, noteNumber: 60, dir: 0 }, 8, [])
-              }
+              onClick={() => {
+                const steps =
+                  seqState.tracks.length > 0
+                    ? seqState.tracks[seqState.tracks.length - 1].steps.length
+                    : 8;
+
+                seq.addTrack({ channel: 0, noteNumber: 60, dir: 0 }, steps, []);
+              }}
             >
               +
             </a>
