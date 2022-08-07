@@ -161,15 +161,17 @@ function App(props: AppProps) {
                   -
                 </a>
               </span>
-              {t.steps.map((step, j) => (
-                <span
-                  key={j}
-                  className={`step ${step.current ? "current" : ""}`}
-                  onClick={() => seq.toggleStep(i, j)}
-                >
-                  {step.active ? "X" : "."}
-                </span>
-              ))}
+              <span className="steps">
+                {t.steps.map((step, j) => (
+                  <span
+                    key={j}
+                    className={`step ${step.current ? "current" : ""}`}
+                    onClick={() => seq.toggleStep(i, j)}
+                  >
+                    {step.active ? "X" : "."}
+                  </span>
+                ))}
+              </span>
             </code>
           </pre>
         ))}

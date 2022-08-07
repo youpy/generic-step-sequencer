@@ -11,6 +11,18 @@
     margin: 0;
   }
 
+  pre.track {
+    span.steps {
+      opacity: 0.2;
+    }
+
+    &.enabled {
+      span.steps {
+        opacity: 1;
+      }
+    }
+  }
+
   .controls {
     margin-right: 1em;
     user-select: none;
@@ -31,10 +43,6 @@
   }
 
   .step.current {
-    background: #eee;
-  }
-
-  .enabled .step.current {
     background: #f00;
   }
 }
