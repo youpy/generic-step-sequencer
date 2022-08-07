@@ -3,7 +3,7 @@ import {
   Sequencer,
   PeriodicTicker,
   Track,
-} from "../../src/sequencer.js";
+} from "../../src/index.js";
 
 interface MyParameter {
   foo: string;

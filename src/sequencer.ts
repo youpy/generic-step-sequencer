@@ -1,5 +1,5 @@
-import { StepExecutor } from "./step";
-import { NextStepStrategy, Track, TrackState, forward } from "./track";
+import { StepExecutor } from "./step.js";
+import { NextStepStrategy, Track, TrackState, forward } from "./track.js";
 
 export interface SequencerState<T> {
   tracks: TrackState<T>[];

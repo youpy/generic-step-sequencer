@@ -1,4 +1,4 @@
-import { Track } from "./track";
+import { Track } from "./track.js";
 
 export interface StepExecutor<T> {
   execute(track: Track<T>): void; // execute a step

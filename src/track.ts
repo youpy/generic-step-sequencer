@@ -1,4 +1,4 @@
-import { Step, StepExecutor } from "./step";
+import { Step, StepExecutor } from "./step.js";
 
 export interface TrackState<T> {
   steps: Step[];

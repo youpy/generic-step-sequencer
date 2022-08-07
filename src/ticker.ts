@@ -1,4 +1,4 @@
-import { Timer, DefaultTimer } from "./timer";
+import { Timer, DefaultTimer } from "./timer.js";
 
 interface Tickable {
   onTick(): void;
