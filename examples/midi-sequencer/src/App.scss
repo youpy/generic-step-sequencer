@@ -31,6 +31,10 @@
   }
 
   .step.current {
+    background: #eee;
+  }
+
+  .enabled .step.current {
     background: #f00;
   }
 }

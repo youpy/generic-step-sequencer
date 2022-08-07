@@ -88,7 +88,23 @@ function App(props: AppProps) {
     <div className="App">
       <div className="sequencer">
         {seqState.tracks.map((t, i) => (
-          <pre key={i}>
+          <pre
+            className={`track ${t.parameters.enabled ? "enabled" : ""}`}
+            key={i}
+          >
+            <input
+              name="enabled"
+              type="checkbox"
+              checked={t.parameters.enabled}
+              onChange={(e) => {
+                seq.setParameters(i, {
+                  channel: t.parameters.channel,
+                  noteNumber: t.parameters.noteNumber,
+                  dir: t.parameters.dir,
+                  enabled: e.target.checked,
+                });
+              }}
+            />
             <select
               value={t.parameters.channel}
               onChange={(e) =>
@@ -96,6 +112,7 @@ function App(props: AppProps) {
                   channel: Number(e.target.value),
                   noteNumber: t.parameters.noteNumber,
                   dir: t.parameters.dir,
+                  enabled: t.parameters.enabled,
                 })
               }
             >
@@ -112,6 +129,7 @@ function App(props: AppProps) {
                   channel: t.parameters.channel,
                   noteNumber: Number(e.target.value),
                   dir: t.parameters.dir,
+                  enabled: t.parameters.enabled,
                 })
               }
             >
@@ -165,7 +183,11 @@ function App(props: AppProps) {
                     ? seqState.tracks[seqState.tracks.length - 1].steps.length
                     : 8;
 
-                seq.addTrack({ channel: 0, noteNumber: 60, dir: 0 }, steps, []);
+                seq.addTrack(
+                  { channel: 0, noteNumber: 60, dir: 0, enabled: true },
+                  steps,
+                  []
+                );
               }}
             >
               +
